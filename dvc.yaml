@@ -6,3 +6,5 @@ stages:
       - data/housing.csv
     outs:
       - model.pkl
+    metrics:
+      - metrics.json
