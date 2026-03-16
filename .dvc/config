@@ -1,0 +1,4 @@
+[core]
+    remote = s3remote_2022bcs0044
+['remote "s3remote_2022bcs0044"']
+    url = s3://2022bcs0044
