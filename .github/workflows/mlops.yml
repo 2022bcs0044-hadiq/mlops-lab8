@@ -2,21 +2,24 @@ name: MLOps Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   train:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install dvc[s3] pandas scikit-learn joblib
+        run: |
+          pip install dvc[s3] pandas scikit-learn joblib
 
       - name: Configure AWS credentials
         run: |
@@ -25,7 +28,7 @@ jobs:
           aws configure set aws_session_token ${{ secrets.AWS_SESSION_TOKEN }}
           aws configure set region us-east-1
 
-      - name: Pull dataset from S3
+      - name: Pull data from DVC remote
         run: dvc pull
 
       - name: Run pipeline
